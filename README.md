@@ -1,6 +1,6 @@
 # Moon Rover
 
-You are traveling along a circular road. The circumference of the circle is `L`. Along the route, you have `N` gas stations. At each gas station, you have some amount of gas available. If you are given the index number of a gas station from which you can start the journey, calculate the distance that you can travel. You are starting with an empty gas tank. The rover has infinite capacity. The gas station does not replenish the gas once you have filled up from it.
+Your rover just landed on the moon! You are going to travel along a circular road. The circumference of the circle is `L`. Along the route, you have `N` gas stations. At each gas station, you have some amount of gas available. If you are given the index number of a gas station from which you can start the journey, calculate the distance that you can travel. You are starting with an empty gas tank. The rover has infinite capacity to store gas. The gas station does not replenish the gas once you have filled up from it.
 
 ## Input
 
@@ -16,7 +16,9 @@ Next `N` lines represent the details of the gas stations.
 
 The details of a gas station can be represented by two space separated numbers, where the first number indicates the location of the gas station in miles. The second number indicates miles that you can travel with the gas available at that location.
 
-Last line represents `i`, the index number of the gas station from which you will start the journey.
+Last line represents the index number of the gas station from which you will start the journey.
+
+The gas stations are sorted by their locations on the route.
 
 ## Expected Output
 
@@ -84,6 +86,9 @@ Since none of the gas stations have any more gas available, the rover will run f
 
 Total distance traveled by the rover is `120` miles.
 
+# Extension
+
+Given the same configuration, calculate the max possible distance the rover can travel if it can start from any of the gas stations.
 
 # Contributing
 
@@ -92,5 +97,7 @@ You may refer to [launch configurations](docs/Launch.md) used for this project. 
 Sample inputs can be found in `resources/`
 
 Sample outputs are under the `outputs/`
+
+Explanation for the solution can be found [here](docs/Solution.md)!
 
 Cheers!

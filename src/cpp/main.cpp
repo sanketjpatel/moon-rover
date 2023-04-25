@@ -45,7 +45,14 @@ tuple<long, int, vector<tuple<long, long>>, int> getRouteDetails(fstream &inputF
 }
 
 // gasStations is expected to be sorted by location (the value of first element of the tuples in it)
-// Returns the total distance traveled by the rover, along with the index of the last gas station that it refueled.
+// Returns the total distance traveled by the rover, along with the index of the last gas station that it refueled at.
+
+// Example Input:
+// circumference = 100
+// N = 5
+// gasStations = [(0, 30), (20, 10), (40, 20), (60, 50), (80, 10)]
+// startingIndex = 3
+// Expected Output: (120, 2)
 tuple<long, int> getDistanceWithLastGasStationIndex(long circumference, int N, const vector<tuple<long, long>> &gasStations, int startingIndex)
 {
     long capacity = 0;
@@ -87,6 +94,13 @@ tuple<long, int> getDistanceWithLastGasStationIndex(long circumference, int N, c
     return tuple(distance + capacity, lastGasStation);
 }
 
+// Returns the total distance traveled by the rover from the gasStation at startingIndex
+// Example Input:
+// circumference = 100
+// N = 5
+// gasStations = [(0, 30), (20, 10), (40, 20), (60, 50), (80, 10)]
+// startingIndex = 3
+// Expected Output: 120
 long getDistance(long circumference, int N, const vector<tuple<long, long>> &gasStations, int startingIndex)
 {
     return get<0>(getDistanceWithLastGasStationIndex(circumference, N, gasStations, startingIndex));
