@@ -98,8 +98,7 @@ tuple<long, int> getMaxPossibleDistanceWithStartingIndex(long circumference, int
     int maxDistanceStartingIndex = 0, startingIndex = 0;
     int lastGasStationIndex = -1;
 
-    while (lastGasStationIndex < 0 || (lastGasStationIndex >= startingIndex) && (lastGasStationIndex != N - 1))
-    {
+    do {
         startingIndex = lastGasStationIndex + 1 % N;
         tie(distance, lastGasStationIndex) = getDistanceWithLastGasStationIndex(circumference, N, gasStations, startingIndex);
         if (distance > maxDistance)
@@ -107,7 +106,7 @@ tuple<long, int> getMaxPossibleDistanceWithStartingIndex(long circumference, int
             maxDistance = distance;
             maxDistanceStartingIndex = startingIndex;
         }
-    }
+    } while ((lastGasStationIndex >= startingIndex) && (lastGasStationIndex != N - 1));
 
     return tuple(maxDistance, maxDistanceStartingIndex);
 }
