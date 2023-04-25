@@ -11,9 +11,9 @@ using namespace std;
 
 // Read the route details from the input file
 // A gas station's details are in a tuple
-// First element of tuple is the location of the gas station
-// Second element of tuple is the miles the rover can travel with the amount of gas available at that gas station
-// Returns the circumference, number of gas stations, vector of gas station details, and index of gas station to start the journey
+// First element of the tuple is the location of the gas station
+// Second element of the tuple is the number of miles that the rover can travel with the amount of gas available at that gas station
+// Returns the circumference, number of gas stations, vector of gas station details, and the index of gas station from which to start the journey
 tuple<long, int, vector<tuple<long, long>>, int> getRouteDetails(fstream &inputFile)
 {
     vector<tuple<long, long>> gasStations;
@@ -55,43 +55,40 @@ tuple<long, int, vector<tuple<long, long>>, int> getRouteDetails(fstream &inputF
 // Expected Output: (120, 2)
 tuple<long, int> getDistanceWithLastGasStationIndex(long circumference, int N, const vector<tuple<long, long>> &gasStations, int startingIndex)
 {
-    long capacity = 0;
-    long distance = 0;
-    long currentLocation, nextLocation, distanceToNextLocation;
-    int index, nextIndex;
+    long capacity = 0, distanceTraveled = 0;
+    int lastStation, nextStation;
+    long lastLocation, nextLocation, distanceToNextLocation;
 
     for (int i = 0; i < N; i++)
     {
-        index = (i + startingIndex) % N;
-        nextIndex = (index + 1) % N;
+        lastStation = (i + startingIndex) % N;
+        nextStation = (lastStation + 1) % N;
 
         // Collect all the available gas
-        capacity += get<1>(gasStations[index]);
+        capacity += get<1>(gasStations[lastStation]);
 
         // Calculate distance to next location
-        currentLocation = get<0>(gasStations[index]);
-        nextLocation = get<0>(gasStations[nextIndex]);
-        distanceToNextLocation = (nextLocation - currentLocation + circumference) % circumference;
+        lastLocation = get<0>(gasStations[lastStation]);
+        nextLocation = get<0>(gasStations[nextStation]);
+        distanceToNextLocation = (nextLocation - lastLocation + circumference) % circumference;
 
-        // Check if rover can reach next gas station
+        // Check if rover can reach the next gas station
         if (capacity < distanceToNextLocation)
         {
-            // Drive as much as possible before gas tank is empty
-            distance += capacity;
+            // Drive as much as possible before the gas tank is empty
+            distanceTraveled += capacity;
 
-            // index represents the last gas station where the rover fueled up
-            return tuple(distance, index);
+            // lastStation represents the last gas station where the rover fueled up
+            return tuple(distanceTraveled, lastStation);
         }
 
-        // Travel to next gas station
-        distance += distanceToNextLocation;
+        // Travel to the next gas station
+        distanceTraveled += distanceToNextLocation;
         capacity -= distanceToNextLocation;
     }
-    // The rover is at the starting gas station now.
-    int lastGasStation = (startingIndex - 1 + N) % N;
 
     // Run till gas tank is empty.
-    return tuple(distance + capacity, lastGasStation);
+    return tuple(distanceTraveled + capacity, lastStation);
 }
 
 // Returns the total distance traveled by the rover from the gasStation at startingIndex
@@ -106,6 +103,13 @@ long getDistance(long circumference, int N, const vector<tuple<long, long>> &gas
     return get<0>(getDistanceWithLastGasStationIndex(circumference, N, gasStations, startingIndex));
 }
 
+// Calculates the max possible distance that the rover can cover with the given configuration
+// Returns the distance and the index of the gas station to start from to achieve this distance
+// Example Input:
+// circumference = 6
+// N = 3
+// gasStations = [(0, 1), (2, 1), (4, 10)]
+// Expected Output: (12, 2)
 tuple<long, int> getMaxPossibleDistanceWithStartingIndex(long circumference, int N, const vector<tuple<long, long>> &gasStations)
 {
     long maxDistance = 0, distance = 0;
@@ -123,6 +127,17 @@ tuple<long, int> getMaxPossibleDistanceWithStartingIndex(long circumference, int
     } while ((lastGasStationIndex >= startingIndex) && (lastGasStationIndex != N - 1));
 
     return tuple(maxDistance, maxDistanceStartingIndex);
+}
+
+// Calculates the max possible distance that the rover can cover with the given configuration
+// Example Input:
+// circumference = 6
+// N = 3
+// gasStations = [(0, 1), (2, 1), (4, 10)]
+// Expected Output: 12
+long getMaxPossibleDistance(long circumference, int N, const vector<tuple<long, long>> &gasStations)
+{
+    return get<0>(getMaxPossibleDistanceWithStartingIndex(circumference, N, gasStations));
 }
 
 // Calculates distances that rover can travel if it were to start at each gas station

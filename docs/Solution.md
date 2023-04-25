@@ -17,43 +17,40 @@ We can achieve the solution for this problem in `O(n)`. We write a function that
 // Expected Output: (120, 2)
 tuple<long, int> getDistanceWithLastGasStationIndex(long circumference, int N, const vector<tuple<long, long>> &gasStations, int startingIndex)
 {
-    long capacity = 0;
-    long distance = 0;
-    long currentLocation, nextLocation, distanceToNextLocation;
-    int index, nextIndex;
+    long capacity = 0, distanceTraveled = 0;
+    long lastLocation, nextLocation, distanceToNextLocation;
+    int lastStation, nextStation;
 
     for (int i = 0; i < N; i++)
     {
-        index = (i + startingIndex) % N;
-        nextIndex = (index + 1) % N;
+        lastStation = (i + startingIndex) % N;
+        nextStation = (lastStation + 1) % N;
 
         // Collect all the available gas
-        capacity += get<1>(gasStations[index]);
+        capacity += get<1>(gasStations[lastStation]);
 
         // Calculate distance to next location
-        currentLocation = get<0>(gasStations[index]);
-        nextLocation = get<0>(gasStations[nextIndex]);
-        distanceToNextLocation = (nextLocation - currentLocation + circumference) % circumference;
+        lastLocation = get<0>(gasStations[lastStation]);
+        nextLocation = get<0>(gasStations[nextStation]);
+        distanceToNextLocation = (nextLocation - lastLocation + circumference) % circumference;
 
-        // Check if rover can reach next gas station
+        // Check if rover can reach the next gas station
         if (capacity < distanceToNextLocation)
         {
-            // Drive as much as possible before gas tank is empty
-            distance += capacity;
+            // Drive as much as possible before the gas tank is empty
+            distanceTraveled += capacity;
 
-            // index represents the last gas station where the rover fueled up
-            return tuple(distance, index);
+            // lastStation represents the last gas station where the rover fueled up
+            return tuple(distanceTraveled, lastStation);
         }
 
         // Travel to next gas station
-        distance += distanceToNextLocation;
+        distanceTraveled += distanceToNextLocation;
         capacity -= distanceToNextLocation;
     }
-    // The rover is at the starting gas station now.
-    int lastGasStation = (startingIndex - 1 + N) % N;
 
     // Run till gas tank is empty.
-    return tuple(distance + capacity, lastGasStation);
+    return tuple(distanceTraveled + capacity, lastStation);
 }
 
 // Returns the total distance traveled by the rover from the gasStation at startingIndex
@@ -104,7 +101,7 @@ tuple<long, int> getMaxPossibleDistanceNaive(long circumference, int N, const ve
 </details>
 <br>
 
-A more efficient way finds the solution in `O(n)`. We start the journey at gas station on `startingIndex = 0`. We calculate the distance and the index of the last refueling stop. If the distance on the last journey is more than the max possible distance, we update the value of max possible distance and its starting index. If the index of the last refueling gas station is less than or equal to `startingIndex`, or if it is `N - 1`, we have arrived at our solution and return the max possible distance along with its starting index.
+A more efficient way finds the solution in `O(n)`. We start the journey at gas station on `startingIndex = 0`. We calculate the distance and the index of the last refueling stop. If the distance on the last journey is more than the max possible distance, we update the value of max possible distance and its starting index. If the index of the last refueling gas station is less than the `startingIndex`, or if it is `N - 1`, we have arrived at our solution and return the max possible distance along with its starting index. Conversely, if the index of the last refueling gas station is greater than or equal to the `startingIndex`, and if it is not `N - 1`, then we reset our journey and start from the next gas station. The following code explains this -
 
 
 <details>
