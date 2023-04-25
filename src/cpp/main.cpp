@@ -12,7 +12,7 @@ using namespace std;
 // Read the route details from the input file
 // A gas station's details are in a tuple
 // First element of tuple is the location of the gas station
-// Second element of tuple is the miles the vehicle can travel with the amount of gas available at that gas station
+// Second element of tuple is the miles the rover can travel with the amount of gas available at that gas station
 // Returns the circumference, number of gas stations, vector of gas station details, and index of gas station to start the journey
 tuple<long, int, vector<tuple<long, long>>, int> getRouteDetails(fstream &inputFile)
 {
@@ -45,7 +45,7 @@ tuple<long, int, vector<tuple<long, long>>, int> getRouteDetails(fstream &inputF
 }
 
 // gasStations is expected to be sorted by location (the value of first element of the tuples in it)
-// Returns the total distance traveled by the truck, along with the index of the last gas station that it refueled.
+// Returns the total distance traveled by the rover, along with the index of the last gas station that it refueled.
 tuple<long, int> getDistanceWithLastGasStationIndex(long circumference, int N, const vector<tuple<long, long>> &gasStations, int startingIndex)
 {
     long capacity = 0;
@@ -66,13 +66,13 @@ tuple<long, int> getDistanceWithLastGasStationIndex(long circumference, int N, c
         nextLocation = get<0>(gasStations[nextIndex]);
         distanceToNextLocation = (nextLocation - currentLocation + circumference) % circumference;
 
-        // Check if truck can reach next gas station
+        // Check if rover can reach next gas station
         if (capacity < distanceToNextLocation)
         {
             // Drive as much as possible before gas tank is empty
             distance += capacity;
 
-            // index represents the last gas station where the vehicle fueled up
+            // index represents the last gas station where the rover fueled up
             return tuple(distance, index);
         }
 
@@ -80,7 +80,7 @@ tuple<long, int> getDistanceWithLastGasStationIndex(long circumference, int N, c
         distance += distanceToNextLocation;
         capacity -= distanceToNextLocation;
     }
-    // The vehicle is at the starting gas station now.
+    // The rover is at the starting gas station now.
     int lastGasStation = (startingIndex - 1 + N) % N;
 
     // Run till gas tank is empty.
@@ -111,7 +111,7 @@ tuple<long, int> getMaxPossibleDistanceWithStartingIndex(long circumference, int
     return tuple(maxDistance, maxDistanceStartingIndex);
 }
 
-// Calculates distances that truck can travel if it were to start at each gas station
+// Calculates distances that rover can travel if it were to start at each gas station
 // returns the max distance and its corresponding starting index
 tuple<long, int> getMaxPossibleDistanceNaive(long circumference, int N, const vector<tuple<long, long>> &gasStations)
 {

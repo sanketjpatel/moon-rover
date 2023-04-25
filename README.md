@@ -1,6 +1,6 @@
 # Moon Rover
 
-You are traveling along a circular road. The circumference of the circle is `L`. Along the route, you have `N` gas stations. At each gas station, you have some amount of gas available. If you are given the index number of a gas station from which you can start the journey, calculate the distance that you can travel. You are starting with an empty gas tank. The vehicle has infinite capacity. The gas station does not replenish the gas once you have filled up from it.
+You are traveling along a circular road. The circumference of the circle is `L`. Along the route, you have `N` gas stations. At each gas station, you have some amount of gas available. If you are given the index number of a gas station from which you can start the journey, calculate the distance that you can travel. You are starting with an empty gas tank. The rover has infinite capacity. The gas station does not replenish the gas once you have filled up from it.
 
 ## Input
 
@@ -64,25 +64,25 @@ Explanation:
 
 You will start at the gas station on mile marker `60`. 
 
-Fill up all the available gas. Now the vehicle has a capacity to travel `50` miles.
+Fill up all the available gas. Now the rover has a capacity to travel `50` miles.
 
 You travel `20` miles, and reach the next gas station. 
 
-The capacity of vehicle has reduced to `30` miles now.
+The capacity of rover has reduced to `30` miles now.
 
 Fill up the available gas (`10`). The capacity is now `40` miles. Your current location is at mile marker `80`. 
 
-The vehicle continues its journey for `20` miles and reaches the gas station at mile marker `0`. (The vehicle route is a circle of length `100` miles).
+The rover continues its journey for `20` miles and reaches the gas station at mile marker `0`. (The rover route is a circle of length `100` miles).
 
-Capacity is now `20`. The vehicle does another refill of `30`, and continues forward with the journey...
+Capacity is now `20`. The rover does another refill of `30`, and continues forward with the journey...
 
-As the vehicle keeps going forward, it will eventually reach the gas station at mile marker `40` and fill up all the available gas.
+As the rover keeps going forward, it will eventually reach the gas station at mile marker `40` and fill up all the available gas.
 
-The vehicle would have traveled `80` miles so far, and it would have a capacity to travel `40` more miles.
+The rover would have traveled `80` miles so far, and it would have a capacity to travel `40` more miles.
 
-Since none of the gas stations have any more gas available, the vehicle will run for `40` more miles and run out of gas.
+Since none of the gas stations have any more gas available, the rover will run for `40` more miles and run out of gas.
 
-Total distance traveled by the vehicle is `120` miles.
+Total distance traveled by the rover is `120` miles.
 
 
 # Contributing
