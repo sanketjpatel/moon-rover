@@ -33,20 +33,18 @@ Say your input is
 1
 100
 5
-3
 0 30
 20 10
 40 20
 60 50
 80 10
+3
 ```
 First line says you are going to run `1` test case.
 
 Second line says the circumference of the circle is `100` miles.
 
 Third line says you have `5` gas stations.
-
-Fourth line says you will start from gas station at index `3`.
 
 The details of gas stations are as follows:
 ```
@@ -57,7 +55,9 @@ Gas station at index 3: Located at mile marker 60, Available gas equivalent to 5
 Gas station at index 4: Located at mile marker 80, Available gas equivalent to 10 miles
 ```
 
-Your output should be the following
+The last line says you will start from gas station at index `3`.
+
+Your output should be the following:
 ```
 120
 ```
